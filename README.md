@@ -30,3 +30,31 @@ REFRESH_TOKEN_PRIVATE_KEY="----RSA_256_REFRESH_TOKEN_PRIVATE_KEY"
 REFRESH_TOKEN_PUBLIC_KEY="----RSA_256_REFRESH_TOKEN_PUBLIC_KEY"
 SUPPRESS_NO_CONFIG_WARNING=True
 ```
+
+### Branch Format
+
+```
+|-----------Branch Format-----------|
+|-----------------------------------|
+| name-initial/feature/modification |
+|-----------------------------------|
+
+name-initial
+------------
+
+Arun Jangra = aj
+Abhay Lal = al
+
+feature
+-------
+
+Eg : Navbar, Footer etc.
+
+modification
+------------
+
+Eg : fix, feature, update
+
+
+Branch Example : aj/navbar/feat
+```
