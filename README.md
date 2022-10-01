@@ -21,6 +21,7 @@ yarn dev
 ```env
 NODE_ENV=development
 PORT=3000
+HOST=localhost
 CORS_URL=*
 DB_NAME="DataScienceHack2022-DB"
 DB_URI="mongodb://127.0.0.1:27017"

@@ -5,6 +5,13 @@ import config from "config";
 export interface UserInput {
     email : string;
     name  :string;
+    about : string;
+    contactno : string;
+    github  : string;
+    linkedin : string;
+    domain : string;
+    subdomain : string;
+    projectlink : string;
     password : string;
 }
 
@@ -18,6 +25,13 @@ const UserSchema = new mongoose.Schema(
     {
         email : {type:String, required : true, unique : true},
         name : {type : String, required: true},
+        about : {type : String, required : true},
+        contactno : {type : String, required : true, unique : true},
+        github : {type : String, required : true},
+        linkedin : {type : String, required : true},
+        domain : {type : String, required : true},
+        subdomain : {type : String},
+        projectlink : {type : String},
         password : {type: String, required : true}
     },
     {

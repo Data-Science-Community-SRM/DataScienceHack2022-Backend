@@ -1,6 +1,6 @@
 import UserModel,{UserInput, UserDocument} from "../model/user.model";
 import {omit} from 'lodash';
-import {FilterQuery} from 'mongoose';
+import {FilterQuery, UpdateQuery} from 'mongoose';
 
 export async function createUser (input : UserInput){
     try {
@@ -9,6 +9,10 @@ export async function createUser (input : UserInput){
     } catch (e:any) {
         throw new Error(e);
     }
+}
+
+export async function updateUser (query : FilterQuery<UserDocument>, update : UpdateQuery<UserDocument>){
+    return UserModel.updateOne(query,update);
 }
 
 export async function validatePassword({email,password}:{email : string, password : string}){

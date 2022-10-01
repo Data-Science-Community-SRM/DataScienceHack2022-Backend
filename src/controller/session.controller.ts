@@ -18,20 +18,22 @@ export async function createUserSessionHandler(req:Request, res:Response){
         res.status(401).send("Invalid Credentials")
     }else{
         const session = await createSession(user._id, req.get("userAgent") || "");
-
+        
         // Now we need a middleware to sign and verify our tokens so we will make that
 
-        const accessToken = signJwt({...user, session: session._id} ,"accessPrivateKey",{expiresIn: config.get("accessTokenTtl")})
+        const accessToken = signJwt({...session, session: session._id} ,"accessPrivateKey",{expiresIn: config.get("accessTokenTtl")})
 
-        const refreshToken = signJwt({...user, session: session._id} ,"refreshPrivateKey",{expiresIn: config.get("refreshTokenTtl")})
+        const refreshToken = signJwt({...session, session: session._id} ,"refreshPrivateKey",{expiresIn: config.get("refreshTokenTtl")})
 
         return res.send({accessToken, refreshToken});
     }
 }
 
 export async function getUserSessionsHandler(req:Request, res:Response){
-    const userId = res.locals.user._id;
+    const userId = res.locals.user.user;
     const sessions = await findSessions({user:userId,valid:true});
+    console.log(sessions);
+    
     res.send(sessions);
 }
 
