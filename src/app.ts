@@ -5,7 +5,14 @@ import routes from "./routes";
 import { deserializeUser } from "./middleware/deserializeUser";
 import Logger from "../core/Logger";
 import morgan from "morgan";
+import rateLimit from 'express-rate-limit'
 
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, 
+	max: 100, 
+	standardHeaders: true, 
+	legacyHeaders: false,
+})
 
 process.on("uncaughtException", (e) => {
   Logger.error(e);
@@ -18,6 +25,7 @@ const app = express();
 
 app.use(express.json());
 app.use(deserializeUser);
+app.use(limiter);
 app.use(
   morgan(function (tokens: any, req: any, res: any) {
     const msg = [

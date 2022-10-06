@@ -1,6 +1,6 @@
 import { Express,Request, Response} from "express";
 import { createUserSessionHandler, deleteSessionsHandler, getUserSessionsHandler } from "./controller/session.controller";
-import { createUserHandler, setSubdomainHandler, submitProjectLinkHandler, unsubmitProjectLinkHandler } from "./controller/user.controller";
+import { createUserHandler, setSubdomainHandler, submitProjectLinkHandler, unsubmitProjectLinkHandler,getSubDomainsHandler, getTasksHandler } from "./controller/user.controller";
 import requireUser from "./middleware/requireUser";
 import validate from "./middleware/validateResources";
 import { createSessionSchema } from "./schema/session.schema";
@@ -26,10 +26,18 @@ export default function (app: Express) {
 
     // Register User
     app.post('/api/register', validate(createUserSchema), createUserHandler);
+    // Get Sub Domains
+    app.get('/api/getsubdomains', requireUser, getSubDomainsHandler);
     // Set Sub Domain
     app.post('/api/setsubdomain', [requireUser,validate(SetSubDomainSchema)], setSubdomainHandler);
     // Submit Project
     app.post('/api/submitproject', [requireUser, validate(SubmitProjectSchema)], submitProjectLinkHandler);
     // Unsubmit Project
     app.options('/api/unsubmitproject', requireUser, unsubmitProjectLinkHandler);
+
+    // TASK ROUTES
+    // -----------
+
+    // get tasks 
+    app.get('/api/gettask', requireUser, getTasksHandler);
 }
